@@ -49,7 +49,13 @@ public class Elevator {
             currentFloor=nextFloor;
             openDoors();
             
+        }else if (!downRequests.isEmpty()) {
+        state = ElevatorState.MOVING_DOWN; // switch direction
+        move();
+            } else {
+        state = ElevatorState.IDLE;
         }
+        
     } else if (state == ElevatorState.MOVING_DOWN) {
         if(!downRequests.isEmpty()){
             state=ElevatorState.MOVING_DOWN;
