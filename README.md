@@ -1,18 +1,48 @@
-## Getting Started
+Elevator desgin — LLD Practice
+A Low-Level Design implementation of a Elevator system in Java.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Design Patterns:
 
-## Folder Structure
+State Pattern — Elevator behaves differently based on its current state (IDLE, MOVING_UP, MOVING_DOWN, DOORS_OPEN). Each state determines what happens when move() is called.
+Strategy Pattern — not used here but will come in BookMyShow (seat pricing)
 
-The workspace contains two folders by default, where:
+Algorithm:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+SCAN Algorithm (Elevator Algorithm) — Elevator moves in one direction, serves all requests along the way, then reverses. Same as how a hard disk read head works.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Class Structure:
+Building
+  - List<Floor> floors
+  - List<Elevator> elevators
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Elevator
+  - int currentFloor
+  - ElevatorState state (enum: IDLE, MOVING_UP, MOVING_DOWN, DOORS_OPEN)
+  - PriorityQueue<Integer> upRequests (min-heap)
+  - PriorityQueue<Integer> downRequests (max-heap)
 
-## Dependency Management
+Floor
+  - int floorNumber
+  - boolean upButtonPressed
+  - boolean downButtonPressed
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+ExternalRequest
+  - int floor
+  - Direction direction (enum: UP, DOWN)
+
+InternalRequest
+  - int floor
+
+Direction (enum) → UP, DOWN
+ElevatorState (enum) → IDLE, MOVING_UP, MOVING_DOWN, DOORS_OPEN
+
+Key Concepts
+Priority Queue min-heap for UP requests — serves lowest floor above you first
+Priority Queue max-heap for DOWN requests — serves highest floor below you first
+
+How to Run
+Clone the repo
+Open in IntelliJ or any Java IDE
+Run App.java
+Part of
+My LLD interview prep series — solving one problem per day.
